@@ -1,0 +1,22 @@
+<pre>
+
+
+
+
+
+</pre>
+<div>
+  <img src="{{url}}/users/img/{{storeimg}}" style="margin-left: 19%;" />
+</div>
+<div class="col-sm-6 offset-sm-2">
+<form  #fo="ngForm"  (ngSubmit)="updateStore(fo, $event)" class="login-form">
+    <span class="btn  btn-file">
+    <input type="file"    name="photo" #fileInput id="photo">
+    </span>
+    <input type="text" placeholder="Store name !!!" required  name="storename" class="form-control"  [(ngModel)]='storename'>
+    <input type="email" #mail="ngModel" placeholder="Write you Email" autocomplete="off" [ngClass]="{'errinput' :erremail == true}" required name="email" class="form-control" [email]="true" [(ngModel)]='email'>
+    <input type="password" placeholder="Write you Password" required  name="password" class="form-control "  [ngClass]="{'errinput' :errpassword == true}"[(ngModel)]='password'>
+    <input type="text" placeholder="describe" required  name="describe" class="form-control " [(ngModel)]='describe' >
+    <input type="submit" value="Update Store" class="btn btn-primary form-control">
+  </form>
+</div>

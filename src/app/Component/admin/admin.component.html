@@ -1,0 +1,68 @@
+<div class="admin col-sm-12">
+  <div class="all">
+    <button class="btn  alluser" (click)="showusercomp()">Alluser</button>
+    <button class="btn  allcomment" (click)="showcommentcomp()">allcomment</button>
+  </div>
+
+  <table class="table  offset-sm-2" *ngIf="userscomp">
+    <thead>
+    <tr>
+      <th scope="col">username</th>
+      <th scope="col">email</th>
+      <th scope="col">other</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr *ngFor="let user of alluser">
+      <td scope="row" >{{user.username}}</td>
+      <td scope="row" >{{user.email}}</td>
+      <td>
+        <button class="btn  disactive" *ngIf="user.activation === true && !checkuser(user._id)" (click)="disactive(user.email)">Disactive</button>
+        <button class="btn  disactive" *ngIf="user.activation === false && !checkuser(user._id)" (click)="active(user.email)">active</button>
+
+
+        <button class="btn  makeadmin"  *ngIf="user.admin === false && !checkuser(user._id)" (click)="makeadmin(user.email)">Make admin</button>
+      <button class="btn  makeadmin"  *ngIf="user.admin === true && !checkuser(user._id)" (click)="removeadmin(user.email)">remove admin</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+
+  <table class="table  offset-sm-2" *ngIf="commentcomp">
+    <thead>
+    <tr>
+      <th scope="col">username</th>
+      <th scope="col">content</th>
+      <th scope="col">other</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let comment of allcomment">
+      <th scope="row" >{{comment.userid.username}}</th>
+      <td scope="row">{{comment.content}}</td>
+      <td>
+        <button class="btn  disactive" *ngIf="comment.status === 0 " (click)="disactiveComment(comment._id)">Disactive</button>
+        <button class="btn  disactive" *ngIf="comment.status === 1 " (click)="activeComment(comment._id)">active</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>
+
+
+
+  <div  class="modalDialog" *ngIf="showpassword">
+    <div class=" col-sm-2">
+      <span  (click)="close()" class="close">X</span>
+      <p style="font-weight: bold;margin-top: 5px" class="text-center">Write u password</p>
+      <div class="alert alert-danger" *ngIf="erralert === true">{{errmsg}}</div>
+      <input type="password" placeholder="Password" class="form-control" [(ngModel)]="password">
+      <button class="btn btn-primary" (click)="submit()" style="margin-top: 10px;margin-left: 25%;">
+        Submit
+      </button>
+    </div>
+  </div>
+

@@ -1,0 +1,289 @@
+.newstore
+{
+  width: 93%;
+  border: 1px solid white;
+  border-radius: 10px;
+  background-color: white;
+  padding: 15px;
+  margin-bottom: 45px;
+  margin-top: 25px;
+
+}
+.newstore .img-cover{
+  width: 70px;
+  height: 70px;
+  border: 1px solid #373c4f;
+  border-radius: 50%;
+  margin-top: 5px;
+  margin-right: 2px;
+  background-size: cover;
+  display: inline;
+  float: left;
+}
+
+.newstore .data
+{
+  float: left;
+
+}
+.newstore .data .data1{
+  height: 25px;
+}
+.newstore .data .data1 > p{
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 15px;
+  color: black;
+  font-weight: bold;
+}
+
+.newstore .data .data2
+{
+  margin: 0;
+}
+.newstore .data .data2 > p
+{
+  margin-left: 10px;
+  font-size: 15px;
+  color: black;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+.newstore .clear
+{
+  clear: both;
+}
+.socials{
+  position: fixed;
+  top: 25px;
+  left: 72%;
+  z-index: 1;
+}
+.phone{
+
+  display: inline-block;
+  width: 165px;
+  padding-top: 6px;
+    border: 1px solid white;
+  border-radius:8px ;
+  height:40px;
+  text-align: center;
+  background-color: white;
+}
+.face, .twitter ,.google{
+  margin-left: 8px;
+  width: 50px;
+  height: 39px;
+  background-color:#4867aa;
+  color: white;
+  display: inline-block;
+  text-align: center;
+  padding-top: 2px;
+  border-radius: 5px;
+  font-size: 20px;
+}
+.twitter{
+  background-color: #007bff;
+}
+.google{
+  background-color: #d54b3d;
+}
+
+
+.edit-store{
+  top: 140px;
+  left: 70%;
+  position: absolute;
+  cursor: pointer;
+  z-index: 0;
+}
+.edit-store .edit
+{
+  margin-left: 8px;
+  width: 40px;
+  height: 40px;
+  background-color: #4867aa;
+  color: white;
+  display: inline-block;
+  text-align: center;
+  padding-top: 4px;
+  border-radius: 50%;
+  font-size: 20px;
+}
+
+
+.collection .edit-store{
+  top: 11px;
+  left: 90%;
+  position: absolute;
+  cursor: pointer;
+  z-index: 0;
+}
+.collection .edit-store .edit
+{
+  margin-left: 8px;
+  width: 40px;
+  height: 40px;
+  background-color: #4867aa;
+  color: white;
+  display: inline-block;
+  text-align: center;
+  padding-top: 4px;
+  border-radius: 50%;
+  font-size: 20px;
+}
+
+.add-rate{
+  top: 140px;
+  left: 67%;
+  position: absolute;
+  cursor: pointer;
+  z-index: 1;
+}
+.add-rate .rates
+{
+  margin-left: 8px;
+  width: 85px;
+  height: 40px;
+  background-color: none;
+  color: black;
+  display: inline-block;
+  text-align: center;
+  padding-top: 4px;
+  font-size: 20px;
+}
+.add-rate .rates i{
+  color: yellow;
+}
+/**Colloction**/
+
+ .collection{
+  width: 93%;
+
+  border: 1px solid white;
+  border-radius: 10px;
+  background-color: white;
+  padding: 15px;
+  margin-bottom: 30px;
+}
+
+ .collection .img-cover{
+  width: 90px;
+  height: 90px;
+  border: 1px solid #373c4f;
+  border-radius: 50%;
+  margin-right: 10px;
+  background-size: cover;
+  display: inline;
+  margin-top: -5px;
+  float: left;
+
+}
+ .collection .data{
+  float: left;
+
+}
+ .collection .data .data1{
+  height: 25px;
+}
+ .collection .data .data1 > p{
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 15px;
+  color: black;
+  font-weight: bold;
+}
+
+ .collection .data .data2{
+  margin: 0;
+}
+ .collection .data .data2 > p{
+  margin-left: 10px;
+  font-size: 15px;
+  color: black;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+ .collection .clear{
+  clear: both;
+}
+. .collection .collection-content{
+  padding: 15px;
+  padding-left: 90px;
+  overflow: hidden;
+  font-size: 20px;
+}
+ .collection .collection-content div  .img1{
+  background-size: cover;
+  display: inline-block;
+  border: none;
+  border-radius: 10px;
+  width: 130px;
+  height: 130px;
+  margin-right:4%;
+  margin-bottom: 10px;
+}
+ .collection .collection-content span,
+ .collection .collection-content span > a{
+  color: #000;
+  cursor: pointer;
+  text-decoration: none;
+}
+ .collection .collection-content span:hover {
+   color: #4867aa;
+ }
+
+
+/**dialog**/
+.modalDialog {
+  position: fixed;
+  font-family: Arial, Helvetica, sans-serif;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0,0,0,0.8);
+  z-index: 99999;
+  opacity:1;
+  -webkit-transition: opacity 400ms ease-in;
+  -moz-transition: opacity 400ms ease-in;
+  transition: opacity 400ms ease-in;
+  pointer-events: auto;
+
+}
+.modalDialog > div {
+  position: relative;
+  margin: 10% auto;
+  padding: 5px 20px 13px 20px;
+  border-radius: 10px;
+  background: #fff;
+  background: -moz-linear-gradient(#fff, #999);
+  background: -webkit-linear-gradient(#fff, #999);
+  background: -o-linear-gradient(#fff, #999);
+}
+.modalDialog .close {
+  background: #606061;
+  color: #FFFFFF;
+  line-height: 25px;
+  position: absolute;
+  right: -12px;
+  text-align: center;
+  top: -10px;
+  width: 24px;
+  text-decoration: none;
+  font-weight: bold;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  border-radius: 12px;
+  -moz-box-shadow: 1px 1px 3px #000;
+  -webkit-box-shadow: 1px 1px 3px #000;
+  box-shadow: 1px 1px 3px #000;
+}
+.modalDialog .close:hover { background: #00d9ff; }
+.map-dialog {
+  height: 150px;
+}
+/****/
+.comments:hover{
+  text-decoration: none;
+}

@@ -1,0 +1,192 @@
+<!--
+
+<div class="col-sm-2">
+
+  <div *ngFor="let item of allRestaurant.store" >
+      <a href="getstore/{{item._id}}">
+        <img src="{{url}}/users/img/{{item.img}}" alt=""  class="img-cover">
+      </a>    <div class="data">
+      <div class="data1">
+        <p> <i class="fa fa-shopping-bag"></i>  {{item.name}}</p>
+        <p> <i class="fa fa-shopping-cart"></i> {{item.describe}}</p>
+        <p><i class="fa fa-circle" style="color:green"></i> {{item.status?'Open Now':'Closed'}}</p>
+      </div>
+      <div class="data2">
+        <p><i class="fa fa-map-marker"></i> elmansora, mall elgamaa</p>
+        <p><i class="fa fa-calendar"></i> 25 June 2018 <i class="fa fa-clock-o"></i> 09:25 pm</p>
+        <p><i class="fa fa-star" style="color:yellow;"></i> &ensp;
+          <i class="fa fa-star" style="color:yellow;"></i> &ensp;
+          <i class="fa fa-star" style="color:yellow;"></i>&ensp;
+          <i class="fa fa-star-o" style="color:yellow;"></i>&ensp;
+          <i class="fa fa-star-o" style="color:yellow;"></i></p>
+      </div>
+    </div>
+  </div>
+</div>
+-->
+
+
+
+
+<div class="commponent">
+
+  <div class="header">
+    <div class="search " >
+      <p class="text-center" id="word">Yalla specify where you will go</p>
+      <div class="col-xl-12 row">
+        <input type="text" [(ngModel)]="searchText" placeholder="Search Coffea" class="form-control  offset-sm-2 offset-md-3 col-xs-2 col-sm-5 col-md-5  search-input"  #search (keyup)="searching(search.value)" >
+        <i class="fa fa-search"></i>
+        <button   class="form-control col-xs-1 col-sm-2 col-md-2 col-lg-1 location " (click)="popmap()">
+          <i class="fa fa-map-pin"></i> Location</button>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!--get location -->
+  <div  class="modalDialog" *ngIf="location">
+    <div class=" map-dialog col-sm-4">
+      <span  (click)="close()" class="close">X</span>
+
+      <div class="form-control ">
+        <agm-map [latitude]="lat" [longitude]="lng"  (mapClick)="click($event)">
+          <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+        </agm-map>
+      </div>
+      <button class="btn btn-primary" style="margin-top: 15px" (click)="getlocation()">
+        Search
+      </button>
+    </div>
+  </div>
+
+
+
+
+
+
+
+  <!--Searching Name-->
+  <div class="col-sm-12 row" *ngIf="searchflag === true && searchmap === false">
+    <div class="newstore col-sm-5" *ngFor="let item of allCoffee | filter : searchText : 'name'" >
+      <div>
+        <div >
+          <a href="getstore/{{item._id}}">
+            <img src="{{url}}/users/img/{{item.img}}" alt=""  class="img-cover">
+          </a>    <div class="data">
+          <div class="data1">
+            <p> <i class="fa fa-shopping-bag"></i>  {{item.name}}</p>
+            <p *ngIf="item.status">
+              <i class="fa fa-circle" style="color:green;"></i> Open Now
+            </p>
+            <p *ngIf="!item.status">
+              <i class="fa fa-circle" style="color:red;"></i> Closed Now
+            </p>
+          </div>
+          <div class="data2">
+            <p><i class="fa fa-map-marker"></i> {{mysplit(item.address)}}</p>
+            <p><i class="fa fa-calendar"></i> {{item.date | date}} <i class="fa fa-clock-o"></i> {{item.date | date :'shortTime' }}</p>
+            <p >
+              <i class="fa fa-star" style="color:yellow;" *ngFor="let i of counter( item.sumrates)"></i>&ensp;
+              <i class="fa fa-star-o" style="color:yellow;" *ngFor="let i of discount( item.sumrates)"></i>&ensp;
+              <span style="font-size: 15px;margin-left: 6px;"> {{item.sumuser}} </span>
+
+            </p>
+          </div>
+        </div>
+        </div>
+
+        <div class="clear"></div>
+
+      </div>
+    </div>
+  </div>
+
+  <!---->
+
+
+  <!--Searching map-->
+  <div class="col-sm-12 row" *ngIf="searchmap === true && searchflag === false">
+    <div class="newstore col-sm-5" *ngFor="let item of allCoffee | filter : newlocation  : 'address'" >
+      <div>
+        <div >
+          <a href="getstore/{{item._id}}">
+            <img src="{{url}}/users/img/{{item.img}}" alt=""  class="img-cover">
+          </a>    <div class="data">
+          <div class="data1">
+            <p> <i class="fa fa-shopping-bag"></i>  {{item.name}}</p>
+            <p *ngIf="item.status">
+              <i class="fa fa-circle" style="color:green;"></i> Open Now
+            </p>
+            <p *ngIf="!item.status">
+              <i class="fa fa-circle" style="color:red;"></i> Closed Now
+            </p>
+          </div>
+          <div class="data2">
+            <p><i class="fa fa-map-marker"></i> {{mysplit(item.address)}}</p>
+            <p><i class="fa fa-calendar"></i> {{item.date | date}} <i class="fa fa-clock-o"></i> {{item.date | date :'shortTime' }}</p>
+            <p >
+              <i class="fa fa-star" style="color:yellow;" *ngFor="let i of counter( item.sumrates)"></i>&ensp;
+              <i class="fa fa-star-o" style="color:yellow;" *ngFor="let i of discount( item.sumrates)"></i>&ensp;
+              <span style="font-size: 15px;margin-left: 6px;"> {{item.sumuser}} </span>
+
+            </p>
+          </div>
+        </div>
+        </div>
+
+        <div class="clear"></div>
+
+      </div>
+    </div>
+  </div>
+
+  <!---->
+
+
+
+  <!--Back-->
+
+  <button class="back btn btn-danger" *ngIf="(searchmap === true && searchflag === false) || (searchmap === false && searchflag === true)" (click)="back()"><i class="fa fa-remove"></i></button>
+
+
+
+  <div class="col-sm-12 row" *ngIf="searchflag === false && searchmap === false">
+    <div class="newstore col-sm-5" *ngFor="let item of allCoffee" >
+      <div>
+        <div >
+          <a href="getstore/{{item._id}}">
+            <img src="{{url}}/users/img/{{item.img}}" alt=""  class="img-cover">
+          </a>    <div class="data">
+          <div class="data1">
+            <p> <i class="fa fa-shopping-bag"></i>  {{item.name}}</p>
+            <p *ngIf="item.status">
+              <i class="fa fa-circle" style="color:green;"></i> Open Now
+            </p>
+            <p *ngIf="!item.status">
+              <i class="fa fa-circle" style="color:red;"></i> Closed Now
+            </p>
+          </div>
+          <div class="data2">
+            <p><i class="fa fa-map-marker"></i> {{mysplit(item.address)}}</p>
+            <p><i class="fa fa-calendar"></i> {{item.date | date}} <i class="fa fa-clock-o"></i> {{item.date | date :'shortTime' }}</p>
+            <p >
+              <i class="fa fa-star" style="color:yellow;" *ngFor="let i of counter( item.sumrates)"></i>&ensp;
+              <i class="fa fa-star-o" style="color:yellow;" *ngFor="let i of discount( item.sumrates)"></i>&ensp;
+              <span style="font-size: 15px;margin-left: 6px;"> {{item.sumuser}} </span>
+
+            </p>
+          </div>
+        </div>
+        </div>
+
+        <div class="clear"></div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+</div>

@@ -1,0 +1,42 @@
+
+  <pre>
+
+
+
+
+
+
+
+
+
+  </pre>
+  <div class="row">
+        <div class="col-sm-8">
+            <div class="panel panel-white post panel-shadow">
+              <div class="post-heading">
+                    <div class="pull-left image">
+                        <img src="{{url}}/users/img/{{userimg}}" class="img-circle avatar" alt="user profile image" style="width: 161px;
+margin-bottom: 22px;">
+                    </div>
+                    <div class="pull-left meta">
+                        <div class="title h5">
+                            <a href="#"><b> {{username}}  </b></a>
+
+                        </div>
+                        <h6 class="text-muted time"> </h6>
+                    </div>
+                    <br>
+                    <form #fo="ngForm" method="post" (ngSubmit)="addComment(fo,$event)" >
+                      <textarea type="text"  name="comment" class="name form-control"  autocomplete="off" placeholder="describe" [ngModel]="comment" >
+                      </textarea>
+                      <input type="submit" value="Comment" class="btn btn-success">
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div>
+
+

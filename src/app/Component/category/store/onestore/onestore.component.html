@@ -1,0 +1,189 @@
+<pre>
+
+
+
+
+
+</pre>
+<div class="newstore offset-sm-3 col-sm-6" *ngFor="let item of oneStore" >
+  <div>
+    <div >
+      <a href="getstore/{{item._id}}">
+        <img src="{{url}}/users/img/{{imgstore}}" alt=""  class="img-cover">
+      </a>    <div class="data">
+      <div class="data1">
+        <p> <i class="fa fa-shopping-bag"></i>  {{item.name}}</p>
+        <p *ngIf="item.status">
+          <i class="fa fa-circle" style="color:green;"></i> Open Now
+        </p>
+        <p *ngIf="!item.status">
+          <i class="fa fa-circle" style="color:red;"></i> Closed Now
+        </p>
+      </div>
+      <div class="data2">
+        <p><i class="fa fa-map-marker"></i> {{mysplit(item.address)}}</p>
+        <p><i class="fa fa-calendar"></i> {{item.date | date}} <i class="fa fa-clock-o"></i> {{item.date | date :'shortTime' }}</p>
+        <p >
+          <i class="fa fa-star" style="color:yellow;" *ngFor="let i of counter( item.sumrates)"></i>&ensp;
+          <i class="fa fa-star-o" style="color:yellow;" *ngFor="let i of discount( item.sumrates)"></i>&ensp;
+          <span style="font-size: 15px;margin-left: 6px;"> {{item.sumuser}} </span>
+
+        </p>
+      </div>
+    </div>
+    </div>
+
+    <div class="clear"></div>
+
+  </div>
+</div>
+
+<div class="socials row">
+  <div class="phone" *ngIf="phone"> <i class="fa fa-phone-square"></i>+020 {{phone}}</div>
+  <a href="{{facebook}}" class="face" *ngIf="facebook"><i class="fa fa-facebook-f"></i></a>
+  <a href="{{twitter}}" class="twitter" *ngIf="twitter"><i class="fa fa-twitter"></i></a>
+  <a href="{{google}}" class="google" *ngIf="google"><i class="fa fa-google-plus"></i></a>
+</div>
+
+
+<div class="edit-store" *ngIf="storelogined">
+  <a href="/settingStore/{{storeid}}" class="edit" ><i class="fa fa-edit"></i></a>
+</div>
+
+<div class="add-rate" *ngIf="userlogined" (click)="showpoprate()">
+  <p class="rates"  ><i class="fa fa-star"></i>Rate</p>
+</div>
+
+
+
+<!--get rate -->
+<div  class="modalDialog" *ngIf="showrate">
+  <div class=" map-dialog col-sm-2">
+    <span  (click)="close()" class="close">X</span>
+
+      <select name=""  style="margin-bottom: 15px;font-size: 40px; color:yellow; " class="selectpicker form-control  collect-option"  (change)="getrate($event.target.value)">
+        <option [value]="1" >*</option>
+        <option [value]="2"   >**</option>
+        <option [value]="3"   >***</option>
+        <option [value]="4"   >****</option>
+        <option [value]="5"  >*****</option>
+      </select>
+    <button class="btn btn-primary btn-block" (click)="addrate(storeid)">
+      Rate
+    </button>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="collection offset-sm-3 col-sm-6" *ngFor="let collection of content">
+  <div class="edit-store" *ngIf="storelogined">
+    <a href="/oneCollectionEdit/{{collection._id}}" class="edit" ><i class="fa fa-edit"></i></a>
+  </div>
+  <div>
+    <a href="oneCollection/{{collection._id}}">
+      <img src="{{url}}/users/img/{{imgstore}}" alt=""   class="img-cover">
+    </a>
+    <div class="data">
+      <div class="data1">
+        <p> <i class="fa fa-shopping-cart"></i> {{collection.name}} </p>
+
+      </div>
+      <div class="data2">
+        <p><i class="fa fa-calendar"></i> {{collection.date | date}} <i class="fa fa-clock-o"></i> {{collection.date | date :'shortTime'}} </p>
+      </div>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="collection-content">
+    <p>{{collection.description}}</p>
+    <div class="col-sm-12 row" >
+      <img *ngFor="let img of collection.img" src="{{url}}/users/img/{{ img }}" alt="" class="img1">
+    </div>
+
+    <hr/>
+    <span (click)="makelike(collection._id,collection.categoryid,storeid)" *ngIf="userlogined"  >
+      <i   style.color = "{{getlike(collection.userslikes) ===  true ? '#4867aa' : 'black'}}" class="fa fa-thumbs-up" ></i>
+      <span *ngIf="collection.like > 0">{{collection.like}}</span> &nbsp;
+    </span>
+    <a href="oneCollection/{{collection._id}}" class="comments">&nbsp;<i class="fa fa-comments"> </i>&nbsp;</a>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--  <div *ngIf="oneStore[1]" class="col-sm-8">
+      <div class="panel panel-white post panel-shadow" *ngFor="let collection of oneStore[1].contents">
+          <div class="post-heading">
+              <a href="oneCollection/{{collection._id}}">
+                <img src="{{url}}/users/img/{{oneStore[0].store[0].img}}" alt=""   class="img-cover">
+              </a>
+              <div class="pull-left meta">
+                  <div class="title h5">
+                  <b>{{collection.name}}</b>
+                   <p>
+                      {{collection.description}}
+                  </p>
+
+                  </div>
+                  <p class="text-muted time"> {{collection.date | date}}</p>
+              </div>
+              <br>
+
+              <div  >
+                  <img   class="img-circle avatar"  *ngFor="let img of collection.img" src="{{url}}/users/img/{{img}}" alt="user profile image">
+              </div>
+
+              <br>
+              {{collection.content}}
+          </div>
+      </div>
+      </div>-->

@@ -1,0 +1,21 @@
+.login-form > input{
+  margin-bottom: 15px;
+  outline: none !important;
+}
+.login-form > input:focus{
+  outline: none !important;
+}
+.login-form > input[type = "submit"]{
+background-color: #4867aa;
+  color: #f3f3f3;
+  width: 50%;
+  margin-left: 25%;
+  margin-bottom: 5px;
+}
+
+.login-form > input[type = "submit"]:focus{
+  outline: none !important;
+}
+.errinput {
+  border: 2px solid #ff314b;
+}

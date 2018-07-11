@@ -1,0 +1,75 @@
+<div class="comment" style="padding-top: 100px;">
+
+<div class="collection panel panel-white post col-sm-6 offset-sm-3" *ngFor="let collection of oneCollection">
+  <div>
+    <div class="edit-store" *ngIf="showedit(collection.storeid._id) === true">
+      <a href="/oneCollectionEdit/{{collection._id}}" class="edit" ><i class="fa fa-edit"></i></a>
+    </div>
+      <a href="getstore/{{collection.storeid._id}}"><img src="{{url}}/users/img/{{collection.storeid.img}}" alt=""   class="img-cover"></a>
+      <div class="data">
+        <div class="data1">
+          <p> <i class="fa fa-shopping-bag"></i> {{collection.storeid.name}}</p>
+          <p> <i class="fa fa-shopping-cart"></i> {{collection.name}} </p>
+           <p *ngIf="collection.storeid.status">
+            <i class="fa fa-circle" style="color:green;"></i> Open Now
+          </p>
+          <p *ngIf="!collection.storeid.status">
+            <i class="fa fa-circle" style="color:red;"></i> Closed Now
+          </p>
+        </div>
+        <div class="data2">
+          <p><i class="fa fa-map-marker"></i> {{mysplit(collection.storeid.address)}}</p>
+          <p><i class="fa fa-calendar"></i> {{collection.date | date}} <i class="fa fa-clock-o"></i> {{collection.date | date :'shortTime'}} </p>
+                  </div>
+      </div>
+    </div>
+
+    <div class="clear"></div>
+    <div class="collection-content">
+      <p>{{collection.description}}</p>
+        <div class="col-sm-12 row" >
+          <div>
+
+            <img  *ngFor="let oneImg of collection.img" src="{{url}}/users/img/{{oneImg}}" alt=" " class="img1">
+          </div><!-- <div  class="img1 col-sm-3" style="background-image:url('{{ img }}');">
+        </div>-->
+      </div>
+    </div>
+</div>
+      <!-- <///////////////////////////////Comment> -->
+
+      <div class="row">
+        <div class="col-sm-6 offset-sm-3" style="margin-bottom: 15px">
+            <div class="panel panel-white post panel-shadow" *ngFor="let collection of allComments">
+              <div class="edit-store" *ngIf="showedit(collection.userid._id) === true">
+                <a href="/editComment/{{collection._id}}" class="edit" ><i class="fa fa-edit"></i></a>
+              </div>
+              <div class="post-heading">
+                    <div class="pull-left image">
+                        <img src="{{url}}/users/img/{{collection.userid.img}}" class="img-circle avatar" alt="user profile image">
+                    </div>
+                    <div class="pull-left meta">
+                        <div class="title h5" >
+                            <a href="#"><b>   {{collection.userid.username}}</b></a>
+
+                        </div>
+                        <h6 class="text-muted time"> {{collection.date | date}}</h6>
+                    </div>
+                    <br>
+                    {{collection.content}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+  <!--Add Comment-->
+    <div class="col-sm-6 offset-sm-3"  *ngIf="userlogined">
+
+        <form #fo="ngForm" method="post" (ngSubmit)="addComment(comment.value,$event)" >
+          <textarea type="text" #comment name="commentBody" class="name form-control"  style="height: 70px;margin-bottom: 10px;resize: none" autocomplete="off" placeholder="Coment" [ngModel]="commentBody" >
+          </textarea>
+          <input type="submit" value="Add Comment" class="btn btn-primary">
+        </form>
+
+    </div>
+</div>

@@ -1,0 +1,24 @@
+<pre>
+
+
+
+
+
+</pre>
+<div>
+    <img src="{{url}}/users/img/{{userimg}}" style="width: 100px;
+margin-left: 18%;
+margin-bottom: 10px;"/>
+  </div>
+<div class="col-sm-6 offset-sm-2">
+  <form  #fo="ngForm"  (ngSubmit)="updateUser(fo, $event)" class="login-form">
+    <input type="file"    name="photo" #fileInput id="photo">
+    <input type="text" placeholder="User name !!!" required  name="username" class="form-control"  [(ngModel)]='username'>
+    <input type="email" #mail="ngModel" placeholder="Write you Email" autocomplete="off" [ngClass]="{'errinput' :erremail == true}" required name="email" class="form-control" [email]="true" [(ngModel)]='email'>
+    <input type="password" placeholder="Write you Password" required  [ngClass]="{'errinput' :errpassword == true}" name="password" class="form-control "  [(ngModel)]='password'>
+    <input type="text" placeholder="First Name" required  name="firstname" class="form-control " [(ngModel)]='firstname' >
+    <input type="text" placeholder="Last Name" required  name="lastname" class="form-control "  [(ngModel)]='lastname'>
+    <input type="text" placeholder="Phone" required  name="phone" class="form-control "  [(ngModel)]='phone'>
+    <input type="submit" value="Update" class="btn" class="form-control">
+  </form>
+</div>

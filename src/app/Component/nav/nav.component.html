@@ -1,0 +1,205 @@
+
+<nav class="navbar navbar-expand-lg navbar-light ">
+  <i class="fa fa-gratipay" id="show-login" (click)="showpopup()"></i>
+      <a class="navbar-brand" href="/home" >Yalla</a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse " id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto ">
+    </ul>
+  </div>
+</nav>
+
+<div  class="modalDialog" *ngIf="showpoplogin">
+  <div class="col-sm-5  col-lg-5 row showpoplogin ">
+    <span  (click)="close()" class="close">X</span>
+    <p class=" sign-in"><i class="fa fa-gratipay"></i>Sign In</p>
+    <div class="col-sm-12 row ">
+      <div class="sign-in-user col-lg-6" (click)="showuser()">
+      <button class="form-control"><i class="fa fa-user"></i> Sign in User</button>
+      </div>
+    <div class="sign-in-store col-lg-6" (click)="showstore()">
+      <button class="form-control"><i class="fa fa-shopping-cart"></i> Sign in Store</button>
+    </div>
+    </div>
+  </div>
+</div>
+
+
+<div  class="modalDialog" *ngIf="showpoploginuser">
+  <div class="col-sm-8  col-lg-6 row">
+    <span  (click)="close()" class="close">X</span>
+    <div class="sign-in-general col-lg-6">
+      <p class="text-center sign-in"><i class="fa fa-gratipay"></i>Sign In User</p>
+      <div class="alert alert-danger text-center" *ngIf="erralert === '' && (mail.invalid && mail.touched)">
+        <span >Ex..@mail.com</span>
+      </div>
+      <div class="alert alert-danger text-center" *ngIf="showalert">
+        <span>{{erralert}}</span>
+      </div>
+      <form  #fo="ngForm" (submit)="loginuser(fo)" class="login-form">
+        <input type="email" #mail="ngModel" placeholder="Write you Email" autocomplete="off" [ngClass]="{'errinput' :erremail == true}" required name="email" class="form-control" [email]="true" [(ngModel)]='email'>
+        <input type="password" placeholder="Write you Password"  [ngClass]="{'errinput' :errpassword == true}" required  name="password" class="form-control "  [(ngModel)]='password'>
+        <input type="submit" value="Sign in" class="btn">
+      </form>
+
+      <p class="text-center not-account" (click)="showpopupcreateUser();">Not Have Account</p>
+    </div>
+    <div class="sign-in-socail col-lg-6">
+      <div class="facebook form-control "><span><i class="fa fa-facebook"></i></span>Facebook</div>
+      <div class="twitter form-control "><span><i class="fa fa-twitter"></i></span>Twitter</div>
+      <div class="google form-control" ><span><i class="fa fa-google-plus"></i></span>Google </div>
+    </div>
+  </div>
+</div>
+
+  <!--create User-->
+
+<div  class="modalDialog" *ngIf="showCreateuser" style="float:left; overflow-y: auto;">
+    <div class="sign-in-general col-lg-6 col-md-6 col-sm-8" style="margin-top: 1%;margin-bottom: 0px">
+      <span  (click)="close()" class="close">X</span>
+      <p class="text-center sign-in" style="margin-top: 8px;margin-bottom: 18px"><i class="fa fa-gratipay"></i>Sign Up User</p>
+      <div class="alert alert-danger text-center" *ngIf="erralert === '' && (mail.invalid && mail.touched)">
+        <span >Ex..@mail.com</span>
+      </div>
+      <div class="alert alert-danger text-center" *ngIf="showalertregister">
+        <span>{{erralert}}</span>
+      </div>
+      <form  #fo="ngForm" (submit)="registerUser(fo)" class="login-form">
+        <input type="text" placeholder="User name !!!" required  name="username" [ngClass]="{'errinput' :userRegisterErr.username == true}" class="form-control " [(ngModel)]="userDataRegister.username">
+        <input type="email" #mail="ngModel" placeholder="Write you Email" autocomplete="off" [ngClass]="{'errinput' :userRegisterErr.email == true}" required name="email" class="form-control" [email]="true" [(ngModel)]="userDataRegister.email">
+        <input type="password" placeholder="Write you Password" required [ngClass]="{'errinput' :userRegisterErr.password == true}"  name="password" class="form-control "  [(ngModel)]="userDataRegister.password">
+        <input type="text" placeholder="First Name" required  name="firstname" [ngClass]="{'errinput' :userRegisterErr.firstname == true}" [(ngModel)]="userDataRegister.firstname" class="form-control "  >
+        <input type="text" placeholder="Last Name" required  name="lastname" class="form-control "  [ngClass]="{'errinput' :userRegisterErr.lastname == true}" [(ngModel)]="userDataRegister.lastname" >
+        <select name=""  style="margin-bottom: 15px" class="selectpicker form-control
+          collect-option"  (change)="Gender($event.target.value)">
+          <option [value]="1" >Male</option>
+          <option [value]="2">Female</option>
+        </select>
+        <input type="text" placeholder="Phone" required  name="phone" [(ngModel)]="userDataRegister.phone" class="form-control "  [ngClass]="{'errinput' :userRegisterErr.phone == true}">
+        <div class="form-control ">
+        <agm-map [latitude]="lat" [longitude]="lng"  (mapClick)="click($event)">
+          <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+        </agm-map>
+        </div>
+        <input type="submit" value="Sign Up" class="btn" class="form-control ">
+      </form>
+        <p class="text-center not-account" (click)="showuser()">Already I Have Account</p>
+    </div>
+
+
+</div>
+
+
+<div  class="modalDialog" *ngIf="showpoploginstore">
+  <div class="col-sm-8  col-lg-6 row">
+    <span  (click)="close()" class="close">X</span>
+    <div class="sign-in-general col-lg-6">
+      <p class="text-center sign-in"><i class="fa fa-gratipay"></i>Sign In Store</p>
+      <div class="alert alert-danger text-center" *ngIf="erralert === '' && (mail.invalid && mail.touched)">
+        <span >Ex..@mail.com</span>
+      </div>
+      <div class="alert alert-danger text-center" *ngIf="showalert">
+        <span>{{erralert}}</span>
+      </div>
+      <form  #fo="ngForm" (submit)="loginstore(fo)" class="login-form">
+        <input type="email" #mail="ngModel" placeholder="Write you Email" autocomplete="off" [ngClass]="{'errinput' :erremail == true}" required name="email" class="form-control" [email]="true" [(ngModel)]='email'>
+        <input type="password" placeholder="Write you Password"  [ngClass]="{'errinput' :errpassword == true}" required  name="password" class="form-control "  [(ngModel)]='password'>
+        <input type="submit" value="Sign in" class="btn">
+      </form>
+
+
+      <p class="text-center not-account" (click)="showpopupcreateStore()">Not Have Account</p>
+    </div>
+    <div class="sign-in-socail col-lg-6">
+      <div class="facebook form-control "><span><i class="fa fa-facebook"></i></span>Facebook</div>
+      <div class="twitter form-control "><span><i class="fa fa-twitter"></i></span>Twitter</div>
+      <div class="google form-control" ><span><i class="fa fa-google-plus"></i></span>Google </div>
+    </div>
+  </div>
+</div>
+<!-- Create Store-->
+<div  class="modalDialog" *ngIf="showCreateStore" style="float:left;overflow-y: auto; ">
+  <div class="sign-in-general col-lg-6 col-md-6 col-sm-8" style="margin-top: 1%;margin-bottom: 0px">
+      <span  (click)="close()" class="close">X</span>
+      <p class="text-center sign-in"><i class="fa fa-gratipay"></i>Create Store</p>
+      <div class="alert alert-danger text-center" *ngIf="erralert === '' && (mail.invalid && mail.touched)">
+        <span >Ex..@mail.com</span>
+      </div>
+    <div class="alert alert-danger text-center" *ngIf="showalertregister">
+      <span>{{erralert}}</span>
+    </div>
+    <form  #fo="ngForm"  (submit)="registerStore(fo,$event)" class="login-form" >
+        <input type="email" #mail="ngModel" placeholder="Write you Email" autocomplete="off" [ngClass]="{'errinput' :storeRegisterErr.email == true}" required name="email" class="form-control" [email]="true" [(ngModel)]='StoreDataRegister.email'>
+        <input type="password" placeholder="Write you Password" required  name="password" autocomplete="off" [ngClass]="{'errinput' :storeRegisterErr.password == true}" class="form-control "  [(ngModel)]='StoreDataRegister.password'>
+        <input type="text" placeholder="Name" required  name="name" class="form-control " autocomplete="off" [ngClass]="{'errinput' :storeRegisterErr.name == true}" [(ngModel)]='StoreDataRegister.name' >
+        <select name=""  style="margin-bottom: 15px" class="selectpicker form-control  collect-option"  (change)="category($event.target.value)">
+          <option [value]="1" >Cofe`</option>
+          <option [value]="2">Resturant</option>
+          <option [value]="3">Store</option>
+          <option [value]="4">Gym</option>
+          <option [value]="5">Club</option>
+        </select>
+
+        <textarea placeholder="Describte" [ngClass]="{'errinput' :storeRegisterErr.describe == true}" required  name="describe" class="form-control " class="form-control Desc" [(ngModel)]='Storedescribe'></textarea>
+        <div class="form-control">
+        <agm-map [latitude]="lat" [longitude]="lng" (mapClick)="click($event)" >
+          <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+        </agm-map>
+      </div>
+        <input type="submit" value="Creat Store" class="btn btn-primary">
+      </form>
+        <p class="text-center not-account" (click)="showstore()">Already I Have Account</p>
+    </div>
+
+</div>
+
+
+<div  class="modalDialog" *ngIf="showstoredata">
+  <div class="show-data col-sm-3 col-lg-2">
+    <span  (click)="close()" class="close">X</span>
+    <a href="/getstore/{{idstore}}">
+      <img src="{{url}}/users/img/{{imgstore}}" alt=""   class="img-cover">
+    </a>
+    <p class="text-center name">
+      {{namestore}}
+    </p>
+    <a href="/addcontent/{{idstore}}" class="setting form-control text-center" >
+      Add Content
+    </a>
+    <a href="/settingStore/{{idstore}}" class="setting form-control text-center">
+      setting
+    </a>
+    <p class="logout form-control text-center" (click)="logout()">
+      logout
+    </p>
+  </div>
+</div>
+
+<div  class="modalDialog" *ngIf="showuserdata">
+  <div class="show-data col-sm-3 col-lg-2">
+    <span  (click)="close()" class="close">X</span>
+    <a href="/profile/{{iduser}}">
+      <img src="{{url}}/users/img/{{imguser}}" alt="" align="center" class="img-cover">
+    </a>
+    <p class="text-center name">
+      {{nameuser}}
+    </p>
+    <a href="/setting/{{iduser}}" class="setting form-control text-center">
+      Setting
+    </a>
+    <a href="/admin/{{iduser}}" class="admin form-control text-center" *ngIf="admin === 'true' ">
+      Admin Page
+    </a>
+    <p class="logout form-control text-center" (click)="logout()">
+      logout
+    </p>
+  </div>
+</div>
+
+
+
+<router-outlet></router-outlet>

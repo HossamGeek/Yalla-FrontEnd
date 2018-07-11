@@ -1,0 +1,38 @@
+.add-content{
+  position: absolute;
+  top: -1px;
+  border: 1px solid black;
+  padding-top: 200px;
+  height: 100%;
+  opacity: 0.8;
+  background-image: url("../../../assets/city-people-road-2316-977x550.jpg");
+  background-size: cover;
+}
+.add-content .form-content{
+  padding-left: 36%;
+
+}
+.add-content  p{
+  font-size: 35px;
+  color: #FFFFFF;
+  font-family: "Pacifico",cursive;
+  font-weight: bold;
+}
+.add-content .form-content input[type='text']{
+  margin-top: 15px;
+  margin-bottom: 15px;
+  height: 45px;
+
+}
+
+.add-content .form-content input[type='submit']{
+
+  margin-left: 5%;
+}
+.add-content .form-content textarea{
+
+  resize: none;
+  height: 100px;
+  margin-bottom: 15px;
+}
+

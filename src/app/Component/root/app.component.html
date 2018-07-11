@@ -1,0 +1,413 @@
+
+<div class="header">
+  <div class="search " >
+  <p class="text-center" id="word">Yalla specify where you will go</p>
+<div class="col-xl-12 row">
+  <input type="text" [(ngModel)]="searchText" placeholder="Search Resturant, Store, Coffea, Gym, Club" class="form-control  offset-sm-2 offset-md-3 col-xs-2 col-sm-5 col-md-5  search-input" #search (keyup)="searching(search.value)">
+  <i class="fa fa-search"></i>
+  <button   class="form-control col-xs-1 col-sm-2 col-md-2 col-lg-1 location " (click)="popmap()">
+    <i class="fa fa-map-pin"></i> Location</button>
+</div>
+</div>
+</div>
+
+
+
+<!--get location -->
+<div  class="modalDialog" *ngIf="location">
+  <div class=" map-dialog col-sm-4">
+    <span  (click)="close()" class="close">X</span>
+
+      <div class="form-control ">
+        <agm-map [latitude]="lat" [longitude]="lng"  (mapClick)="click($event)">
+          <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+        </agm-map>
+      </div>
+      <button class="btn btn-primary" style="margin-top: 15px" (click)="getlocation()">
+        Search
+      </button>
+   </div>
+</div>
+
+<div  class="modalDialog" *ngIf="waiting">
+  <div class=" col-sm-2">
+  <button style="margin-top: 5px" class="btn btn-primary btn-block">waiting</button>
+  </div>
+</div>
+
+
+
+
+<!--searching-->
+
+<div class="col-sm-12 row" *ngIf="searchflag === true && searchmap === false">
+  <div class="search-data col-sm-5" *ngFor="let new of allstore | filter : searchText : 'name'">
+    <div>
+      <img src="{{url}}/users/img/{{new.img}}" alt=""  class="img-cover">
+      <div class="data">
+        <div class="data1">
+          <p> <i class="fa fa-shopping-bag"></i><a href="getstore/{{new._id}}" class="show-store" style="  cursor: pointer; text-underline: none;color: #000000;"> {{new.name}}</a></p>
+          <p *ngIf="new.status">
+            <i class="fa fa-circle" style="color:green;"></i> Open Now
+          </p>
+          <p *ngIf="!new.status">
+            <i class="fa fa-circle" style="color:red;"></i> Closed Now
+          </p>
+        </div>
+        <div class="data2">
+          <p><i class="fa fa-map-marker"></i> {{mysplit(new.address)}}</p>
+          <p><i class="fa fa-calendar"></i> {{new.date | date }} <i class="fa fa-clock-o"></i> {{new.date | date :'shortTime' }}</p>
+
+        </div>
+      </div>
+      <div class="clear"></div>
+
+    </div>
+
+
+  </div>
+
+</div>
+
+<!-- End -->
+<!--Back-->
+<button class="back btn btn-danger" *ngIf="(searchmap === true && searchflag === false) || (searchmap === false && searchflag === true)" (click)="back()"><i class="fa fa-remove"></i></button>
+
+<!--searching Map-->
+
+<div class="col-sm-12 row" *ngIf="searchmap === true && searchflag === false">
+  <div class="search-data col-sm-5" *ngFor="let new of allstore | filter : newlocation  : 'address'">
+    <div>
+      <img src="{{url}}/users/img/{{new.img}}" alt=""  class="img-cover">
+      <div class="data">
+        <div class="data1">
+          <p> <i class="fa fa-shopping-bag"></i><a href="getstore/{{new._id}}" class="show-store"  style="cursor: pointer; text-underline: none;color: #000000;"> {{new.name}}</a></p>
+          <p *ngIf="new.status">
+            <i class="fa fa-circle" style="color:green;"></i> Open Now
+          </p>
+          <p *ngIf="!new.status">
+            <i class="fa fa-circle" style="color:red;"></i> Closed Now
+          </p>
+        </div>
+        <div class="data2">
+          <p><i class="fa fa-map-marker"></i> {{mysplit(new.address)}}</p>
+          <p><i class="fa fa-calendar"></i> {{new.date | date }} <i class="fa fa-clock-o"></i> {{new.date | date :'shortTime' }}</p>
+
+        </div>
+      </div>
+      <div class="clear"></div>
+
+    </div>
+
+
+  </div>
+
+</div>
+
+<!-- End -->
+
+
+<!--
+<div class="mode col-sm-12 ">
+<p class="text-center choose-mode"> Discover By Mood</p>
+<div class=" col-sm-12 row">
+
+<a class="col-md-3 alone text-center" href="#">
+  Alone
+</a>
+<a class="col-md-3 couple text-center" href="#">
+  Couple
+</a>
+<a class="col-md-3 party text-center" href="#">
+  Friends
+</a>
+
+</div>
+</div>
+
+<hr class="fasla"/>
+-->
+
+
+
+<div *ngIf="searchflag === false && searchmap === false">
+<div class="category col-sm-12 ">
+<p class="text-center choose-store"> Discover By Places</p>
+<div class=" col-sm-12 row">
+<a class="col-sm-2 coffe text-center" href="coffee/1">
+  Cofe'
+</a>
+<a class="col-sm-2 restaurant text-center" href="restaurant/2">
+  Restaurant
+</a>
+<a class="col-sm-2 store text-center" href="store/3">
+  Store
+</a>
+<a class="col-sm-2 gym text-center" href="gym/4">
+Gym
+</a>
+<a class="col-sm-2 club text-center" href="club/5">
+  Club
+</a>
+
+</div>
+</div>
+
+
+<hr class="fasla"/>
+
+<!-- Start -->
+
+
+<div class="content col-sm-12 row">
+<div class="left col-sm-8">
+<div class="collect-head">
+  <p class="new-collectin">New Collections</p>
+  <select name="" id="" data-style="btn-danger"  (change)="newcollection($event.target.value)"
+          class="selectpicker offset-4 offset-sm-4 offset-md-5 offset-lg-7  col-sm-3 col-lg-2   collect-option">
+    <option [value]="1" >Cofe`</option>
+    <option [value]="2">Resturant</option>
+    <option [value]="3">Store</option>
+    <option [value]="4">Gym</option>
+    <option [value]="5">Club</option>
+  </select>
+</div>
+
+
+<!--- all collection of stores -->
+<div class="collection" *ngFor="let collection of namecollection">
+  <div>
+    <a href="getstore/{{collection.storeid._id}}">
+      <img src="{{url}}/users/img/{{collection.storeid.img}}" alt=""   class="img-cover">
+    </a>
+    <div class="data">
+      <div class="data1">
+        <p> <i class="fa fa-shopping-bag"></i>  {{collection.storeid.name}}</p>
+        <p> <i class="fa fa-shopping-cart"></i> {{collection.name}} </p>
+        <p *ngIf="collection.storeid.status">
+          <i class="fa fa-circle" style="color:green;"></i> Open Now
+        </p>
+        <p *ngIf="!collection.storeid.status">
+          <i class="fa fa-circle" style="color:red;"></i> Closed Now
+        </p>
+      </div>
+      <div class="data2">
+        <p><i class="fa fa-map-marker"></i> {{mysplit(collection.storeid.address)}}</p>
+        <p><i class="fa fa-calendar"></i> {{collection.date | date}} <i class="fa fa-clock-o"></i> {{collection.date | date :'shortTime'}} </p>
+      </div>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="collection-content">
+    <p>{{collection.description}}</p>
+      <div class="col-sm-12 row" >
+        <img *ngFor="let img of collection.img" src="{{url}}/users/img/{{ img }}" alt="" class="img1">
+      </div>
+
+    <hr/>
+    <span (click)="makelike(collection._id,collection.categoryid)" *ngIf="!storelogined"  >
+      <i   style.color = "{{getlike(collection.userslikes) ===  true ? '#4867aa' : 'black'}}" class="fa fa-thumbs-up" ></i>
+      <span *ngIf="collection.like > 0">{{collection.like}}</span> &nbsp;
+    </span>
+      <a href="oneCollection/{{collection._id}}" class="comments">&nbsp;<i class="fa fa-comments"> </i>&nbsp;</a>
+
+  </div>
+</div>
+
+<!---End of collection --->
+
+
+</div>
+
+<!-- Right -->
+<div class="right col-sm-4">
+
+<div style="margin-bottom: 35px">
+
+
+<div class="collect-head">
+  <p class="new-collectin">New in Yalla</p>
+  <select name=""  data-style="btn-danger" class="selectpicker offset-4 offset-sm-4 offset-md-5 offset-lg-4  col-sm-3 col-lg-4
+  collect-option" (change)="newyalla($event.target.value)">
+    <option [value]="1" >Cofe`</option>
+    <option [value]="2">Resturant</option>
+    <option [value]="3">Store</option>
+    <option [value]="4">Gym</option>
+    <option [value]="5">Club</option>
+  </select>
+</div>
+<!-- new store -->
+<div class="newstore" *ngFor="let new of nameyalla ">
+  <div>
+<img src="{{url}}/users/img/{{new.img}}" alt=""  class="img-cover">
+    <div class="data">
+      <div class="data1">
+        <p> <i class="fa fa-shopping-bag"></i> <a href="getstore/{{new._id}}" class="show-store" > {{new.name}}</a></p>
+        <p *ngIf="new.status">
+          <i class="fa fa-circle" style="color:green;"></i> Open Now
+        </p>
+        <p *ngIf="!new.status">
+          <i class="fa fa-circle" style="color:red;"></i> Closed Now
+        </p>
+      </div>
+      <div class="data2">
+        <p><i class="fa fa-map-marker"></i> {{mysplit(new.address)}}</p>
+        <p><i class="fa fa-calendar"></i> {{new.date | date }} <i class="fa fa-clock-o"></i> {{new.date | date :'shortTime' }}</p>
+
+      </div>
+    </div>
+    <div class="clear"></div>
+
+  </div>
+
+
+</div>
+</div>
+<!-- end store -->
+
+<!-- top rated-->
+
+<div style="margin-bottom: 35px">
+
+<div class="collect-head">
+  <p class="new-collectin">Top Rated</p>
+  <!--<select name=""  data-style="btn-danger" class="selectpicker offset-4 offset-sm-4 offset-md-5 offset-lg-5  col-sm-3 col-lg-3   collect-option">
+    <option [value]="1" >Cofe`</option>
+    <option [value]="2">Resturant</option>
+    <option [value]="3">Store</option>
+    <option [value]="4">Gym</option>
+    <option [value]="5">Club</option>
+  </select>-->
+</div>
+<!-- top rated-->
+
+
+  <div class="newstore" *ngFor="let new of twoToprate ">
+    <div>
+      <img src="{{url}}/users/img/{{new.store.img}}" alt=""  class="img-cover">
+      <div class="data">
+        <div class="data1">
+          <p> <i class="fa fa-shopping-bag"></i> {{new.store.name}}</p>
+          <p *ngIf="new.store.status">
+            <i class="fa fa-circle" style="color:green;"></i> Open Now
+          </p>
+          <p *ngIf="!new.store.status">
+            <i class="fa fa-circle" style="color:red;"></i> Closed Now
+          </p>
+        </div>
+        <div class="data2">
+          <p><i class="fa fa-map-marker"></i> {{mysplit(new.store.address)}}</p>
+          <p><i class="fa fa-calendar"></i> {{new.store.date | date }} <i class="fa fa-clock-o"></i> {{new.store.date | date :'shortTime' }}</p>
+          <p >
+            <i class="fa fa-star" style="color:yellow;" *ngFor="let i of counter( new.rate)"></i>&ensp;
+            <i class="fa fa-star-o" style="color:yellow;" *ngFor="let i of discounter( new.rate)"></i>
+            </p>
+        </div>
+      </div>
+      <div class="clear"></div>
+
+    </div>
+  </div>
+
+</div>
+<!-- end  top rated-->
+
+<!-- new users-->
+
+<div style="margin-bottom: 35px">
+
+  <div class="collect-head">
+    <p class="new-collectin">New users</p>
+  </div>
+  <!-- users -->
+  <div class="newstore" *ngFor="let newuser of newusers ">
+    <div>
+      <img src="{{url}}/users/img/{{newuser.img}}" alt=""  class="img-cover">
+      <div class="data">
+        <div class="data1">
+          <p style="text-transform: capitalize;"> <i class="fa fa-user"></i> {{newuser.username }}</p>
+          <p *ngIf="newuser.activation">
+            <i class="fa fa-circle" style="color:green;"></i> Active
+          </p>
+          <p *ngIf="!newuser.activation">
+            <i class="fa fa-circle" style="color:red;"></i> DisActive
+          </p>
+        </div>
+        <div class="data2">
+          <p><i class="fa fa-map-marker"></i> {{mysplit(newuser.address)}}</p>
+          <p><i class="fa fa-calendar"></i> {{newuser.date | date }} <i class="fa fa-clock-o"></i> {{newuser.date | date :'shortTime' }}</p>
+        </div>
+      </div>
+      <div class="clear"></div>
+
+    </div>
+
+  </div>
+
+</div>
+<!-- end  users-->
+
+<div style="clear: both"></div>
+
+<!--Download our app-->
+<div style="margin-bottom: 35px">
+
+  <div class="collect-head">
+    <p class="new-collectin">Download our Application</p>
+  </div>
+  <!-- users -->
+  <div class="our-App">
+    <a href="#">
+      <img src="../../../assets/app.jpg" width="95%" alt="">
+    </a>
+
+  </div>
+
+</div>
+
+</div>
+</div>
+<!-- End -->
+
+<hr class="fasla"/>
+
+<!-- Advertising -->
+
+
+<div class="advertising col-sm-12 ">
+<div class="adver2  col-sm-12"></div>
+</div>
+
+<!-- End -->
+<!-- footer -->
+<div class="footer col-sm-12" >
+  <div class="row">
+      <div class="about-us col-sm-6 row">
+        <div class="our-web">
+          <span>About us</span>
+          <p>
+            Our Website aims to provide the research process
+            in the city of Mansoura, restaurants, shops, cafés, gym
+            and the construction of the place and name.
+            stores and restaurants are rated according to the highest rating of customers.
+            As well as restaurants and shops contain collection or menu,
+            The collocation is displayed and on the home page,
+            the highest collcation is shown according to customer opinions.
+          </p>
+        </div>
+      </div>
+    <div class="contact-us col-sm-6">
+
+        <span>contact us</span>
+        <div class="phone" >Phone : <i class="fa fa-phone-square"></i>+020 01142540786</div>
+      <div class="email" >Email : <i class="fa fa-mail-forward"></i> contact@yalla.com</div>
+
+        <a href="" class="facebook-yalla" ><i class="fa fa-facebook-f"></i></a>
+        <a href="" class="twitter-yalla" ><i class="fa fa-twitter"></i></a>
+        <a href="" class="google-yalla" ><i class="fa fa-google-plus"></i></a>
+
+    </div>
+  </div>
+
+</div>
+</div>

@@ -1,0 +1,12 @@
+img{
+  width: 13%;
+  height: 13%;
+  margin-left: 20px;
+}
+input{
+  margin: 5px;
+}
+
+.errinput {
+  border: 2px solid #ff314b;
+}
